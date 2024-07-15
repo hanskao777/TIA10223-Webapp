@@ -68,7 +68,7 @@
 		<td><%=venueArea.getVenueAreaID()%></td>
 		<td><%=venueArea.getVenueID()%></td>
 		<td><%=venueArea.getAreaName()%></td>
-		<td><%=venueArea.getAreaPicture()%></td>
+		<td><img src="/TIA102G5/venueArea/getImage?venueAreaID=<%=venueArea.getVenueAreaID()%>" alt="³õÀ]¹Ï¤ù" width="100" height="100"></td>
 	</tr>
 </table>
 

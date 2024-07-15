@@ -78,7 +78,7 @@
 			<td>${venueArea.venueAreaID}</td>
 			<td>${venueArea.venueID}</td>
 			<td>${venueArea.areaName}</td>
-			<td>${venueArea.areaPicture}</td>
+			<td><img src="/TIA102G5/venueArea/getImage?venueAreaID=${venueArea.venueAreaID}" alt="³õÀ]¹Ï¤ù" width="100" height="100"></td>
 <%-- 			<td>${venueArea.hiredate}</td> --%>
 <%-- 			<td>${empVO.sal}</td> --%>
 <%-- 			<td>${empVO.comm}</td>  --%>
