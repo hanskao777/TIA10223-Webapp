@@ -101,37 +101,37 @@ public class VenueAreaServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("venueArea", venueArea);
 
-//			// 處理圖片顯示
-//			res.setContentType("image/gif");
-//			ServletOutputStream out = res.getOutputStream();
-//			try {
-//				Statement stmt = con.createStatement();
-//				ResultSet rs = stmt
-//						.executeQuery("SELECT areaPicture FROM venuearea WHERE venueAreaID = " + venueAreaID);
-//
-//				if (rs.next()) {
-//					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("areaPicture"));
-//					byte[] buf = new byte[4 * 1024]; // 4K buffer
-//					int len;
-//					while ((len = in.read(buf)) != -1) {
-//						out.write(buf, 0, len);
-//					}
-//					in.close();
-//				} else {
-//					InputStream in = getServletContext().getResourceAsStream("/TIA102G5/back-end/venuearea/images/none2.jpg");
-//					byte[] b = new byte[in.available()];
-//					in.read(b);
-//					out.write(b);
-//					in.close();
-//				}
-//				rs.close();
-//				stmt.close();
-//			} catch (Exception e) {
-//				InputStream in = getServletContext().getResourceAsStream("/TIA102G5/back-end/venuearea/images/null.jpg");
-//				byte[] b = in.readAllBytes();
-//				out.write(b);
-//				in.close();
-//			}
+			// 處理圖片顯示
+			res.setContentType("image/gif");
+			ServletOutputStream out = res.getOutputStream();
+			try {
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt
+						.executeQuery("SELECT areaPicture FROM venuearea WHERE venueAreaID = " + venueAreaID);
+
+				if (rs.next()) {
+					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("areaPicture"));
+					byte[] buf = new byte[4 * 1024]; // 4K buffer
+					int len;
+					while ((len = in.read(buf)) != -1) {
+						out.write(buf, 0, len);
+					}
+					in.close();
+				} else {
+					InputStream in = getServletContext().getResourceAsStream("/TIA102G5/back-end/venuearea/images/none2.jpg");
+					byte[] b = new byte[in.available()];
+					in.read(b);
+					out.write(b);
+					in.close();
+				}
+				rs.close();
+				stmt.close();
+			} catch (Exception e) {
+				InputStream in = getServletContext().getResourceAsStream("/TIA102G5/back-end/venuearea/images/null.jpg");
+				byte[] b = in.readAllBytes();
+				out.write(b);
+				in.close();
+			}
 ////            =================/處理圖片顯示================
 
 			String url = "/back-end/venuearea/listOneVenueArea.jsp";
