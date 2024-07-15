@@ -101,40 +101,6 @@ public class VenueAreaServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("venueArea", venueArea);
 
-//			// 處理圖片顯示
-//			res.setContentType("image/gif");
-//			ServletOutputStream out = res.getOutputStream();
-//			try {
-//				Statement stmt = con.createStatement();
-//				ResultSet rs = stmt
-//						.executeQuery("SELECT areaPicture FROM venuearea WHERE venueAreaID = " + venueAreaID);
-//
-//				if (rs.next()) {
-//					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("areaPicture"));
-//					byte[] buf = new byte[4 * 1024]; // 4K buffer
-//					int len;
-//					while ((len = in.read(buf)) != -1) {
-//						out.write(buf, 0, len);
-//					}
-//					in.close();
-//				} else {
-//					InputStream in = getServletContext().getResourceAsStream("/back-end/venuearea/images/none2.jpg");
-//					byte[] b = new byte[in.available()];
-//					in.read(b);
-//					out.write(b);
-//					in.close();
-//				}
-//				rs.close();
-//				stmt.close();
-//			} catch (Exception e) {
-//				InputStream in = getServletContext().getResourceAsStream("/back-end/venuearea/images/null.jpg");
-//				System.out.println(in);
-//				byte[] b = in.readAllBytes();
-//				out.write(b);
-//				in.close();
-//			}
-//////            =================/處理圖片顯示================
-
 			String url = "/back-end/venuearea/listOneVenueArea.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -169,21 +135,20 @@ public class VenueAreaServlet extends HttpServlet {
 //		
 //				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 			Integer venueAreaID = Integer.valueOf(req.getParameter("venueAreaID").trim());
+			Integer venueID = null;
 //				
 			String str = req.getParameter("venueID");
 			if (str == null || str.trim().length() == 0) {// 請求如果是空的或是空格
 				errorMsgs.add("請輸入場館編號");
-			}
-
-			Integer venueID = null;
-			try {
-				venueID = Integer.valueOf(str);
-			} catch (Exception e) {
-				errorMsgs.add("場地編號格式不正確");
-			}
-
-			if (venueID > 3) {
-				errorMsgs.add("場館編號目前只有1~3");
+			} else {
+				try {
+					venueID = Integer.valueOf(str);
+					if (venueID > 3) {
+						errorMsgs.add("場館編號目前只有1~3");
+					}
+				} catch (Exception e) {
+					errorMsgs.add("場地編號格式不正確");
+				}
 			}
 
 			String areaName = req.getParameter("areaName").trim();
@@ -259,19 +224,19 @@ public class VenueAreaServlet extends HttpServlet {
 //
 //				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			String str = req.getParameter("venueID");
+			Integer venueID = null;
+
 			if (str == null || str.trim().length() == 0) {// 請求如果是空的或是空格
 				errorMsgs.add("請輸入場館編號");
-			}
-
-			Integer venueID = null;
-			try {
-				venueID = Integer.valueOf(str);
-			} catch (Exception e) {
-				errorMsgs.add("場地編號格式不正確");
-			}
-
-			if (venueID > 3) {
-				errorMsgs.add("場館編號目前只有1~3");
+			} else {
+				try {
+					venueID = Integer.valueOf(str);
+					if (venueID > 3) {
+						errorMsgs.add("場館編號目前只有1~3");
+					}
+				} catch (Exception e) {
+					errorMsgs.add("場地編號格式不正確");
+				}
 			}
 
 			String areaName = req.getParameter("areaName").trim();
@@ -331,7 +296,7 @@ public class VenueAreaServlet extends HttpServlet {
 //				// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("venueArea", venueArea); // 含有輸入格式錯誤的venueArea物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/venueArea/addVenueArea.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/venuearea/addVenueArea.jsp");
 				failureView.forward(req, res);
 				return;
 			}
